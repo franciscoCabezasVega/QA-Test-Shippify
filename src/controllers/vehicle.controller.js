@@ -4,7 +4,7 @@ import {
     successDeletedVehicle,
     succesModifyVehicle,
     errorMessageVehicle
-} from "../constants";
+} from "../../constants";
 
 const getListVehiclesByDriver = async (req, res) => {
     try {

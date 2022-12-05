@@ -50,6 +50,7 @@ bower_components
 connect.lock
 typings
 package-lock.json
+cypress/screenshots/
 
 # Logs
 logs
