@@ -1,4 +1,10 @@
 import { getConnection } from "../database/database";
+import {
+    successAddVehicle,
+    successDeletedVehicle,
+    succesModifyVehicle,
+    errorMessageVehicle
+} from "../constants";
 
 const getListVehiclesByDriver = async (req, res) => {
     try {
@@ -17,13 +23,13 @@ const addVehicle = async (req, res) => {
         const { driver_id, plate, model, type, capacity, creation_date } = req.body;
 
         if (driver_id === undefined || plate === undefined || model === undefined || type === undefined || capacity === undefined || creation_date === undefined) {
-            res.status(400).json({ message: "Bad Request. Please fill all field." });
+            res.status(400).json({ message: errorMessageVehicle });
         }
 
         const vehicle = { driver_id, plate, model, type, capacity, creation_date };
         const connection = await getConnection();
         await connection.query("INSERT INTO vehicle SET ?", vehicle)
-        res.json({ message: "Vehicle added" });
+        res.json({ message: successAddVehicle });
     } catch (error) {
         res.status(500);
         res.send(error.message);
@@ -35,7 +41,7 @@ const deleteVehicle = async (req, res) => {
         const { id } = req.params;
         const connection = await getConnection();
         await connection.query("DELETE FROM vehicle v WHERE v.id = ?", id);
-        res.json({ message: "Vehicle deleted" });
+        res.json({ message: successDeletedVehicle });
     } catch (error) {
         res.status(500);
         res.send(error.message);
@@ -48,13 +54,13 @@ const updateVehicle = async (req, res) => {
         const { driver_id, plate, model, type, capacity, creation_date } = req.body;
 
         if (id === undefined || driver_id === undefined || plate === undefined || model === undefined || type === undefined || capacity === undefined || creation_date === undefined) {
-            res.status(400).json({ message: "Bad Request. Please fill all field." });
+            res.status(400).json({ message: errorMessageVehicle });
         }
 
         const vehicle = { driver_id, plate, model, type, capacity, creation_date };
         const connection = await getConnection();
         await connection.query("UPDATE vehicle v SET ? WHERE v.id = ?", [vehicle, id]);
-        res.json({ message: "Vehicle modified" });
+        res.json({ message: succesModifyVehicle });
     } catch (error) {
         res.status(500);
         res.send(error.message);

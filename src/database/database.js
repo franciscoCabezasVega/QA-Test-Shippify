@@ -2,11 +2,11 @@ import mysql from "promise-mysql";
 import config from "./../config";
 
 const connection = mysql.createConnection({
-    host:'shippify4.cv2sgxogwffx.sa-east-1.rds.amazonaws.com',
-    user:'candidate5',
-    password:'ubnpS3rySnj88Sum',
-    database:'shippify5',
-    port:'3306'
+    host:config.host,
+    user:config.user,
+    password:config.password,
+    database:config.schema,
+    port:config.port
 });
 
 const getConnection = () => {
